@@ -20,7 +20,13 @@
           <span class="badge bg-<%=subclass%>" ><%= item.status %></span>
         </div>
       </div>
-      
+      <p><b>Assigned to: </b><%= item.assigned_to%>
+        <% if current_user.is_admin?%>
+          <%= link_to assign_item_path(item),  :class => 'px-1' do %>
+            <i class="far fa-edit"></i>
+          <% end %>
+        <% end %>
+      </p>
       <p class="text-muted mb-4">
           <i class="far fa-calendar" aria-hidden="true"></i> <%= item.dates %>
           <i class="far fa-clock px-2" aria-hidden="true"></i> <%= item.schedule %>

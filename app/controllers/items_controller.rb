@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[show edit update destroy toggle_status]
+  before_action :set_item, only: %i[show edit update destroy toggle_status assign assign_item]
 
   # GET /items
   def index
@@ -31,8 +31,6 @@ class ItemsController < ApplicationController
   # POST /items or /items.json
   def create
     @item = BuildItem.call(current_user,item_params)
-    debugger
-
     respond_to do |format|
       if @item.save
         format.html { redirect_to items_url, notice: 'Item created successfully' }
@@ -84,11 +82,33 @@ class ItemsController < ApplicationController
     end
   end
 
+  # GET /items/1/assign
+  def assign
+    render turbo_stream: turbo_stream.replace('all_items', partial: 'items/assign', locals: { item: @item, users: User.not_admin })
+  rescue StandardError => e
+    flash[:alert] = "Error: #{e.message}"
+    redirect_to items_url
+  end
+  
+  # PATCH/PUT /items/1/assign_item
+  def assign_item
+    @item.assigned_items.destroy_all
+    if @item.assigned_items.create(user_id: params[:user_id])
+      redirect_to items_url, notice: 'Item successfully assigned'
+    else
+      flash[:error] = 'unable to assign item'
+      redirect_to items_url, error: 'Item failed to assign.'
+    end
+  rescue StandardError => e
+    flash[:alert] = "Error: #{e.message}"
+    redirect_to items_url
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_item
-    @item = current_user.items.find(params[:id])
+    @item = Item.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

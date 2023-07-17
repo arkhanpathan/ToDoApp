@@ -1,0 +1,32 @@
+<%= turbo_frame_tag "all_items", class: "row pt-4" do %>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-10">
+          <%= link_to item_path(item)do %>
+            <h5 class="card-title"><%= item.title&.capitalize %></h5>
+          <% end %>
+        </div>
+        <div class="col-md-2">
+          <% subclass = item.todo?? ((item.end_date_time > Time.zone.now)? "danger": "primary") : "success"%>
+          <span class="badge bg-<%=subclass%>" ><%= item.status %></span>
+        </div>
+      </div>
+      
+      <%= form_with url: assign_item_path(item), method: :post do |form| %>
+        <%= form.label :user_id, "Assigned to", class: "form-label" %>
+        <%= form.select :user_id, users.map{|user| [user.full_name, user.id]} , autofocus: true, autocomplete: "Assigned to", class: 'form-control' %>
+        <p class="text-muted mb-4">
+            <i class="far fa-calendar" aria-hidden="true"></i> <%= item.dates %>
+            <i class="far fa-clock px-2" aria-hidden="true"></i> <%= item.schedule %>
+        </p>
+        <p class="card-text"><%= truncate(item.description, length: 30, separator: ' ', omission: '...') %></p>
+        <div class="row">
+          <div class="col-md-6">
+            <%= form.submit 'Assign', class: "btn btn-primary"%>
+          </div>
+        </div>
+      <% end %>
+    </div> 
+  </div>
+<% end %>

@@ -21,4 +21,8 @@ class Item < ApplicationRecord
   def toggle_status
     todo? ? update(status: :completed) : update(status: :todo)
   end
+  
+  def assigned_to
+    users.pluck(:first_name).join(', ')
+  end
 end
