@@ -3,5 +3,5 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+#   movies = Moviadmin@admin.come.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+  User.create(first_name: 'Admin', last_name: '', email: '', password: 'Admin@123', password_confirmation: 'Admin@123', is_admin: true)

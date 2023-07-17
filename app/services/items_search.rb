@@ -9,7 +9,8 @@ class ItemsSearch < ApplicationService
   attr_reader :params, :user
 
   def call
-    items = user.items
+    debugger
+    items = user.is_admin? ? Item.all : user.items
     if params[:search].present?
       items = items.where('start_date_time > ? and start_date_time < ?', params[:search].to_date,
                           params[:search].to_date + 1.day)
