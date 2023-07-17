@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_17_073846) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_17_115042) do
   create_table "assigned_items", force: :cascade do |t|
     t.integer "item_id", null: false
     t.integer "user_id", null: false
@@ -32,6 +32,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_073846) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
@@ -50,4 +58,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_073846) do
   add_foreign_key "assigned_items", "items"
   add_foreign_key "assigned_items", "users"
   add_foreign_key "items", "users"
+  add_foreign_key "notifications", "users"
 end
