@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   get 'items/toggle_status/:id', to: "items#toggle_status", as: 'toggle_status'
   devise_for :users
+  resources :notifications
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

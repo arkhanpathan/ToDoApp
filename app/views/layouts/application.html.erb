@@ -11,6 +11,9 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= turbo_stream_from dom_id(current_user, :broadcast_to) %>
+    <% end %>
     <%= render 'layouts/navigation' %>
     <div class="container">
       <%= render 'layouts/messages' %>

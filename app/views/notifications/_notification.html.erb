@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "all_notifications", class: "row pt-4" do %>
+  <div class="card">
+    <div class="card-body">
+      <li class="py-4" id="<%= dom_id(notification) %>">
+        <%= notification.message %>
+      </li>
+    </div>
+  </div>
+<% end %>

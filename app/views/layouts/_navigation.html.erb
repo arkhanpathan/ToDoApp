@@ -23,15 +23,23 @@
                 </ul>
 
                 <ul class='navbar-nav ml-auto row'>
-                    <li class='nav-item user-name col-md-6 pt-2'>
+                    <li class='nav-item user-name col-md-3 pt-2'>
+                        <%= link_to notifications_path, class: "bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" do %>
+                          <span class="sr-only">View notifications</span>
+                          <i class="fa-solid fa-bell"></i>
+                          <%= turbo_frame_tag "notification_count" do %>
+                            <%= render "notifications/count", count: current_user.unviewed_notifications_count %>
+                          <% end %>
+                        <% end %>
+                    </li>
+                    <li class='nav-item user-name col-md-4 pt-2'>
                         <%= current_user.full_name %>
                     </li>
-                    <li class='nav-item col-md-6'>
+                    <li class='nav-item col-md-3'>
                         <%= button_to("Logout", destroy_user_session_path,
                             class: "btn btn-danger logout-button", method: :delete)%>
                     </li>
                 </ul>
-
             </div>
         <% end %>
     </div>
