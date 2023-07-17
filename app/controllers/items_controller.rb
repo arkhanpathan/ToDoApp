@@ -31,6 +31,7 @@ class ItemsController < ApplicationController
   # POST /items or /items.json
   def create
     @item = BuildItem.call(current_user,item_params)
+    debugger
 
     respond_to do |format|
       if @item.save

@@ -9,7 +9,7 @@ class BuildItem < ApplicationService
   attr_reader :params, :user
 
   def call
-    user.items.new(params)
+    user.owned_items.new(params)
   rescue StandardError => e
     puts "An error occurred while searching the items: #{e.message}"
     raise e.message.to_s.inspect

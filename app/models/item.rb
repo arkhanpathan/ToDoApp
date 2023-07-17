@@ -3,6 +3,8 @@
 class Item < ApplicationRecord
   enum :status, %i[todo completed]
   belongs_to :user
+  has_many :assigned_items
+  has_many :users, through: :assigned_items
 
   validates :title, presence: true
   validates :start_date_time, presence: true
