@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <%= link_to 'ToDo App', root_path, class: 'navbar-brand' %>
+        <% if current_user %> 
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse float-end" id="navbarSupportedContent">
+                <%= form_with url: items_path, method: :get, class: 'form-inline my-2 my-lg-0 row py-7 mx-auto col-10 col-md-8 col-lg-6' do |f|%>
+                    <div class="col-md-9">
+                        <%= f.date_field :search, autocomplete: "off", placeholder: 'Search by date', class: "form-control mr-sm-2" %>
+                    </div>
+                    <div class="col-md-3">
+                       <%= f.submit "search", class: "btn btn-outline-success my-2 my-sm-0"%>
+                    </div>
+                <% end %>
+                
+                <ul class="navbar-nav mr-auto px-4">
+                    <li class="nav-item <%= 'active' if request.path == items_path %>">
+                        <%= link_to 'Add ToDo', new_item_path, class: 'btn btn-outline-primary my-3' %>
+                    </li>
+                </ul>
+
+                <ul class='navbar-nav ml-auto row'>
+                    <li class='nav-item user-name col-md-6 pt-2'>
+                        <%= current_user.full_name %>
+                    </li>
+                    <li class='nav-item col-md-6'>
+                        <%= button_to("Logout", destroy_user_session_path,
+                            class: "btn btn-danger logout-button", method: :delete)%>
+                    </li>
+                </ul>
+
+            </div>
+        <% end %>
+    </div>
+</nav>

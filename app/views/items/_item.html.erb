@@ -1,0 +1,44 @@
+<%= turbo_frame_tag "item_#{item.id}", class: "col-md-4 py-2" do %>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-5">
+          <%= link_to item_path(item)do %>
+            <h5 class="card-title"><%= item.title&.capitalize %></h5>
+          <% end %>
+        </div>
+        <div class="col-md-4">
+          <%= link_to edit_item_path(item),  :class => 'px-1' do %>
+            <i class="far fa-edit"></i>
+          <% end %>
+          <%= link_to item_path(item), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure you want to delete the item?"}, :class => 'white px-3' do %>
+           <i class="fa fa-trash" aria-hidden="true"></i>
+          <% end %>
+        </div>
+        <div class="col-md-3">
+          <% subclass = item.todo?? ((item.end_date_time > Time.zone.now)? "danger": "primary") : "success"%>
+          <span class="badge bg-<%=subclass%>" ><%= item.status %></span>
+        </div>
+      </div>
+      
+      <p class="text-muted mb-4">
+          <i class="far fa-calendar" aria-hidden="true"></i> <%= item.dates %>
+          <i class="far fa-clock px-2" aria-hidden="true"></i> <%= item.schedule %>
+      </p>
+      <p class="card-text"><%= truncate(item.description, length: 30, separator: ' ', omission: '...') %></p>
+      <% text = item.todo?? "Mark as completed" : "Move it to todo" %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= link_to text, toggle_status_path(item), class: "btn btn-primary"%>
+        </div>
+        <div class="col-md-6">
+          <% if item.todo? && (item.end_date_time> Time.zone.now) %>
+            <%= link_to "Reschedule", edit_item_path(item), class: "btn btn-warning"%>
+          <% end%>
+        </div>
+      </div>
+      
+    </div> 
+  </div>
+<% end %>
+

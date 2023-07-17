@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "all_items", class: "row pt-4" do %>
+  <% items.each do |item| %>
+      <%= render item, item: item%>
+  <% end %>
+<% end %>
