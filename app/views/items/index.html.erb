@@ -1,1 +1,7 @@
-<%= render "items", items: @items %>
+<% unless current_user.is_admin?%>
+  <h4> Assigned Task list </h4>
+  <%= render "items", items: @assigned_items %>
+  <br/>
+  <h4> My Task List </h4>
+<%end%>
+<%= render "items", items: @owned_items %>

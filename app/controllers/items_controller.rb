@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
 
   # GET /items
   def index
-    @items = ItemsSearch.call(current_user, params)
+    @assigned_items, @owned_items = ItemsSearch.call(current_user, params)
   end
 
   # GET /items/1
