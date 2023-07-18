@@ -22,6 +22,7 @@ Follow these instructions to get the application up and running on your local ma
 - Set up the database:
    rails db:create
    rails db:migrate
+   rails db:seed
 - Check rspecs (test cases):
    rspec spec
 - Start the Rails server:
@@ -33,3 +34,9 @@ Features
 - User registration and authentication
 - Create, edit, view, update and delete items
 - Simple and user-friendly interface with bootstrap
+
+Credentials
+-----------
+- Admin 
+   email: admin@admin.com
+   password: Admin@123
